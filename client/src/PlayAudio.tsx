@@ -10,9 +10,11 @@ let animationController;
 
 interface PlayAudioProps {
   file: any;
+  handleStartPlay: () => void;
+  handleStopPlay: () => void;
 }
 
-const PlayAudio = ({file}: PlayAudioProps) => {
+const PlayAudio = ({file, handleStartPlay, handleStopPlay}: PlayAudioProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const source = useRef<MediaElementAudioSourceNode>();
@@ -26,13 +28,16 @@ const PlayAudio = ({file}: PlayAudioProps) => {
       source.current.connect(analyzer.current);
       analyzer.current.connect(audioContext.destination);
     }
-    visualizeData();
+
+    handleStartPlay();
+    // visualizeData();
   };
 
   const visualizeData = () => {
     if(audioRef.current && analyzer.current && canvasRef.current) {
       animationController = window.requestAnimationFrame(visualizeData);
     if (audioRef.current.paused) {
+      // handleStopPlay();
       return cancelAnimationFrame(animationController);
     }
     const songData = new Uint8Array(140);
@@ -56,21 +61,14 @@ const PlayAudio = ({file}: PlayAudioProps) => {
       gradient.addColorStop(1.0, "purple");
       ctx!.fillStyle = gradient;
       ctx!.fillRect(start, canvasRef.current.height, bar_width, -songData[i]);
+      // console.log('noga');
+      
     }
     }
   };
 
   return (
-    <Stack direction='column' spacing={2} alignItems='center'>
-      <Stack direction='row'>
-        <Typography sx={{mr: '5px', color: '#BDA7EB', fontWeight: 'bold'}}>{file.name}</Typography>
-        <Typography sx={{color: '#BDA7EB'}}>contains the following instruments:</Typography>
-      </Stack>
-      <Stack direction='row' spacing={3}>
-        <img src={piano} width={50} height={50} />
-        <img src={tuba} width={50} height={50} />
-        <img src={saxophone} width={50} height={50} />
-      </Stack>
+    <Stack>
       <Stack direction='row' alignItems='center'>
       <audio
           ref={audioRef}
@@ -79,9 +77,9 @@ const PlayAudio = ({file}: PlayAudioProps) => {
           controls
         />
       </Stack>
-      <Stack direction='row' alignItems='center'>
+      {/* <Stack direction='row' alignItems='center'>
         <canvas ref={canvasRef} width={500} height={100} />
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 }

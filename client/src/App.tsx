@@ -5,12 +5,13 @@ import logo from "../src/assets/musiclly_logo-01.png";
 import { Button, Grid, Stack, Typography, LinearProgress  } from '@mui/material';
 import DragDropFile from './DragDropFile';
 import PlayAudio from './PlayAudio';
+import PlayScreen from './PlayScreen';
 
 function App() {
   const [file, setFile] = useState(null);
 
   const handleFileLoaded = (chosenFile: any) => {
-    console.log(chosenFile);
+    // console.log(chosenFile);
     setFile(chosenFile);
   }
 
@@ -28,7 +29,7 @@ function App() {
                   backgroundColor: '#BDA7EB'
                 } }} color='secondary'/>
             </Stack>} */}
-            {file && <PlayAudio file={file}></PlayAudio>}
+            {file && <PlayScreen file={file}></PlayScreen>}
           </Stack>
       </div>
     </Grid>
