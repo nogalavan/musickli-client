@@ -6,9 +6,10 @@ import InstrumentsDisplay from "./InstrumentsDisplay";
 
 interface PlayScreenProps {
   file: any;
+  fileInstruments: any
 }
 
-const PlayScreen = ({file}: PlayScreenProps) => {
+const PlayScreen = ({file, fileInstruments}: PlayScreenProps) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [audio, setAudio] = useState(new Audio(window.URL.createObjectURL(file)));
     const [duration, setDuration] = useState<number>();

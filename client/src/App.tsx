@@ -2,18 +2,36 @@ import { useState } from 'react';
 import './App.css';
 import background from "../src/assets/background.jpeg";
 import logo from "../src/assets/musiclly_logo-01.png";
-import { Button, Grid, Stack, Typography, LinearProgress  } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import DragDropFile from './DragDropFile';
-import PlayAudio from './PlayAudio';
 import PlayScreen from './PlayScreen';
+
+const SERVER_UPLOAD_FILE_ADDRESS = "http://localhost:1000/upload";
 
 function App() {
   const [file, setFile] = useState(null);
+  const [fileInstruments, setFileInstruments] = useState(null);
 
   const handleFileLoaded = (chosenFile: any) => {
-    // console.log(chosenFile);
     setFile(chosenFile);
+    sendFileToServer(chosenFile);
   }
+
+  const sendFileToServer = async (chosenFile: any) => {
+    try {
+      const formData = new FormData();
+      formData.append('audio_file', chosenFile);
+
+      const response = await fetch('http://localhost:5000/files/loadfile/', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      setFileInstruments(data);
+    } catch (error) {
+      console.log("fucking fetch mate")
+      console.error(error)
+    }
 
    return (
     <Grid container height='100vh'>
@@ -29,7 +47,7 @@ function App() {
                   backgroundColor: '#BDA7EB'
                 } }} color='secondary'/>
             </Stack>} */}
-            {file && <PlayScreen file={file}></PlayScreen>}
+            {file && <PlayScreen file={file} fileInstruments={fileInstruments}></PlayScreen>}
           </Stack>
       </div>
     </Grid>
