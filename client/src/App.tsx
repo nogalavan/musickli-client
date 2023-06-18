@@ -6,7 +6,7 @@ import { Grid, Stack } from '@mui/material';
 import DragDropFile from './DragDropFile';
 import PlayScreen from './PlayScreen';
 
-const SERVER_UPLOAD_FILE_ADDRESS = "http://localhost:1000/upload";
+const SERVER_UPLOAD_FILE_ADDRESS = 'http://localhost:5000/files/loadfile/';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -22,7 +22,7 @@ function App() {
       const formData = new FormData();
       formData.append('audio_file', chosenFile);
 
-      const response = await fetch('http://localhost:5000/files/loadfile/', {
+      const response = await fetch(SERVER_UPLOAD_FILE_ADDRESS, {
         method: 'POST',
         body: formData,
       });
@@ -32,14 +32,15 @@ function App() {
       console.log("fucking fetch mate")
       console.error(error)
     }
+  }
 
-   return (
+  return (
     <Grid container height='100vh'>
       <div style={{ backgroundImage: `url(${background})`, width: '100%' }}>
-          <Stack sx={{height: '100%', p: '30px'}} spacing={2}>
-            <img src={logo} width={150} height={100} />
-            {!file && <DragDropFile handleFileLoaded={handleFileLoaded}></DragDropFile>}
-            {/* {file && 
+        <Stack sx={{ height: '100%', p: '30px' }} spacing={2}>
+          <img src={logo} width={150} height={100} />
+          {!file && <DragDropFile handleFileLoaded={handleFileLoaded}></DragDropFile>}
+          {/* {file && 
             <Stack sx={{height: '100%'}} alignItems='center' justifyContent='center' spacing={3}>
               <Typography sx={{color: '#BDA7EB'}} variant="subtitle1">Within a few seconds, instruments analyzing will be shown...</Typography>  
               <LinearProgress sx={{ width: '300px', backgroundColor: 'blueviolet',
@@ -47,8 +48,8 @@ function App() {
                   backgroundColor: '#BDA7EB'
                 } }} color='secondary'/>
             </Stack>} */}
-            {file && <PlayScreen file={file} fileInstruments={fileInstruments}></PlayScreen>}
-          </Stack>
+          {file && <PlayScreen file={file} fileInstruments={fileInstruments}></PlayScreen>}
+        </Stack>
       </div>
     </Grid>
   );
