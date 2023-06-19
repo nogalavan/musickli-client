@@ -45,7 +45,8 @@ const InstrumentsDisplay = ({fileName, isPlaying, fileInstruments, seconds}: Ins
       </Stack>
       <Stack direction='row' spacing={3}>
         {instruments.map(x => (<img key={x.key} src={x.src}
-        height={isPlaying && isSelected(x.key) ? 50 : 70} width={isPlaying && isSelected(x.key) ? 50 : 70}/>))}
+        style={{opacity: isPlaying && isSelected(x.key) ? 1 : 0.7}}
+        height={70} width={70}/>))}
       </Stack>
       </Stack>
   );
