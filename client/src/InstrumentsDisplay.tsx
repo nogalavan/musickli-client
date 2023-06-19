@@ -1,7 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { Stack, Typography, Button, Slider, Box, IconButton } from "@mui/material";
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
+import { Stack, Typography } from "@mui/material";
 import piano from "../src/assets/piano-01.png";
 import saxophone from "../src/assets/saxophone-01.png";
 import tuba from "../src/assets/tuba-01.png";
@@ -23,37 +20,10 @@ const instruments = [
 
 interface InstrumentsDisplayProps {
     fileName: string;
-    isPlaying: boolean
+    isSelected: (key: number) => boolean;
 }
 
-const InstrumentsDisplay = ({fileName, isPlaying}: InstrumentsDisplayProps) => {
-    const [keys, setKeys] = useState([2, 3]);
-
-    const isSelected = (key: number) => {
-        return keys.includes(key);
-      }
-
-      const changeInstruments = () => {
-        if(keys.toString() === [1,2].toString()) {
-          setKeys([2, 3]);
-        }
-        if(keys.toString() === [2,3].toString()) {
-          setKeys([3, 1]);
-        }
-        if(keys.toString() === [3,1].toString()) {
-          setKeys([1, 2]);
-        }
-      }
-
-      useEffect(() => {
-        const interval = setInterval(() => {
-            if (isPlaying) {
-              changeInstruments();
-            }
-          }, 1000);
-          return () => clearInterval(interval);
-    }, [isPlaying])
-
+const InstrumentsDisplay = ({fileName, isSelected}: InstrumentsDisplayProps) => {
   return (
     <Stack direction='column' alignItems='center' spacing={2}>
     <Stack direction='row' alignItems='center'>
@@ -61,7 +31,8 @@ const InstrumentsDisplay = ({fileName, isPlaying}: InstrumentsDisplayProps) => {
         <Typography sx={{color: '#BDA7EB'}}>contains the following instruments:</Typography>
       </Stack>
       <Stack direction='row' spacing={3}>
-        {instruments.map(x => (<img key={x.key} src={x.src} height={isSelected(x.key)? 50 : 70} width={isSelected(x.key)? 50 : 70}/>))}
+        {instruments.map(x => (<img key={x.key} src={x.src} height={50} width={50} 
+        style={{opacity: isSelected(x.key) ? 1 : '50%'}}/>))}
       </Stack>
       </Stack>
   );

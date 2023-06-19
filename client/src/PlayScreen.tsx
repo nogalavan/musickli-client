@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Stack, Typography, Button, Slider, Box, IconButton } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Stack, Typography, Slider, IconButton } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import InstrumentsDisplay from "./InstrumentsDisplay";
@@ -14,6 +14,7 @@ const PlayScreen = ({file, fileInstruments}: PlayScreenProps) => {
     const [audio, setAudio] = useState(new Audio(window.URL.createObjectURL(file)));
     const [duration, setDuration] = useState<number>();
     const [seconds, setSeconds] = useState(0);
+    const [keys, setKeys] = useState(1);
 
     useEffect(() => {
         if(audio) {
@@ -27,10 +28,35 @@ const PlayScreen = ({file, fileInstruments}: PlayScreenProps) => {
         const interval = setInterval(() => {
             if (isPlaying) {
               setSeconds(audio.currentTime);
+              changeInstruments();
             }
           }, 1000);
           return () => clearInterval(interval);
     }, [isPlaying])
+
+    const changeInstruments = () => {
+        console.log(keys);
+        
+        if(keys === 1) {
+            console.log('noga');
+            
+            setKeys(2);
+        }
+        else if(keys === 2) {
+            console.log('is');
+            setKeys(3);
+        }
+        else if(keys === 3) {
+            console.log('beautiful');
+            setKeys(1);
+        }
+      }
+
+      
+    const isSelected = (key: number) => {
+        // return keys.includes(key);
+        return keys === key;
+      }
     
 
     const playAudio = () => {
@@ -45,7 +71,7 @@ const PlayScreen = ({file, fileInstruments}: PlayScreenProps) => {
 
   return (
     <Stack direction='column' spacing={2} alignItems='center' justifyContent='center' width='100%'>
-        <InstrumentsDisplay fileName={file.name} isPlaying={isPlaying}></InstrumentsDisplay>
+        <InstrumentsDisplay fileName={file.name} isSelected={isSelected}></InstrumentsDisplay>
         {duration && 
         <Stack direction='row' spacing={1} justifyContent='center' alignItems='center' width='100%'>
             <IconButton onClick={isPlaying ? stopAudio : playAudio}>
