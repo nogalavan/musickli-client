@@ -45,7 +45,8 @@ const PlayScreen = ({file, fileInstruments}: PlayScreenProps) => {
 
   return (
     <Stack direction='column' spacing={2} alignItems='center' justifyContent='center' width='100%'>
-        <InstrumentsDisplay fileName={file.name} isPlaying={isPlaying}></InstrumentsDisplay>
+        <InstrumentsDisplay fileName={file.name} isPlaying={isPlaying}
+        fileInstruments={fileInstruments} seconds={Math.floor(seconds)}></InstrumentsDisplay>
         {duration && 
         <Stack direction='row' spacing={1} justifyContent='center' alignItems='center' width='100%'>
             <IconButton onClick={isPlaying ? stopAudio : playAudio}>
