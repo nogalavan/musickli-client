@@ -2,17 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { Stack, Typography, Button, Slider, Box, IconButton } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
-import piano from "../src/assets/piano-01.png";
-import saxophone from "../src/assets/saxophone-01.png";
-import tuba from "../src/assets/tuba-01.png";
+import piano from "../src/assets/piano.png";
+import guitar from "../src/assets/guitar.png";
+import bass from "../src/assets/double-bass.png";
 
 const instruments = [
     {
-      src: saxophone,
+      src: bass,
       key: 0
     },
     {
-      src: tuba,
+      src: guitar,
       key: 1
     },
     {
@@ -47,7 +47,7 @@ const InstrumentsDisplay = ({fileName, isPlaying, fileInstruments, seconds}: Ins
         {instruments.map(x => (<img key={x.key} src={x.src}
         height={isPlaying && isSelected(x.key) ? 50 : 70} width={isPlaying && isSelected(x.key) ? 50 : 70}/>))}
       </Stack>
-      </Stack>
+    </Stack>
   );
 }
 
