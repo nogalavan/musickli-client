@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import background from "../src/assets/background.jpeg";
 import logo from "../src/assets/musiclly_logo-01.png";
-import { Grid, LinearProgress, Stack, Typography } from '@mui/material';
+import { Grid, LinearProgress, Stack, Typography, Box } from '@mui/material';
 import DragDropFile from './DragDropFile';
 import PlayScreen from './PlayScreen';
 
@@ -39,7 +39,7 @@ function App() {
       <div style={{ backgroundImage: `url(${background})`, width: '100%' }}>
         <Stack sx={{ height: '100%', p: '30px' }} spacing={2}>
           <img src={logo} width={150} height={100} />
-          {!file && <DragDropFile handleFileLoaded={handleFileLoaded}></DragDropFile>}
+            {!file && <Box><DragDropFile handleFileLoaded={handleFileLoaded}></DragDropFile></Box>}
           {file && !fileInstruments && 
             <Stack sx={{height: '100%'}} alignItems='center' justifyContent='center' spacing={3}>
               <Typography sx={{color: '#BDA7EB'}} variant="subtitle1">Within a few seconds, instruments analyzing will be shown...</Typography>  

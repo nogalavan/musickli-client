@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { Stack, Typography, Button, Slider, Box, IconButton } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Stack, Typography, Slider, IconButton } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import InstrumentsDisplay from "./InstrumentsDisplay";
+import './PlayScreen.css';
 
 interface PlayScreenProps {
   file: any;
@@ -48,7 +49,7 @@ const PlayScreen = ({file, fileInstruments}: PlayScreenProps) => {
         <InstrumentsDisplay fileName={file.name} isPlaying={isPlaying}
         fileInstruments={fileInstruments} seconds={Math.floor(seconds)}></InstrumentsDisplay>
         {duration && 
-        <Stack direction='row' spacing={1} justifyContent='center' alignItems='center' width='100%'>
+        <Stack direction='row' spacing={1} sx={{justifyContent: 'center', alignItems: 'center', width: '100%'}}>
             <IconButton onClick={isPlaying ? stopAudio : playAudio}>
                 {!isPlaying ? <PlayArrowIcon sx={{color: '#BDA7EB', height: '60px', width: '60px'}}/> :
                 <PauseIcon sx={{color: '#BDA7EB', height: '60px', width: '60px'}}></PauseIcon> }
