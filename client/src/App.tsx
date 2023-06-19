@@ -6,7 +6,7 @@ import { Grid, LinearProgress, Stack, Typography, Box } from '@mui/material';
 import DragDropFile from './DragDropFile';
 import PlayScreen from './PlayScreen';
 
-const SERVER_UPLOAD_FILE_ADDRESS = 'http://localhost:5000/files/loadfile/';
+const SERVER_UPLOAD_FILE_ADDRESS = 'http://localhost:8000/files/loadfile/';
 
 function App() {
   const [file, setFile] = useState(null);
